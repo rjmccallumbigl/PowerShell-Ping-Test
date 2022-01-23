@@ -59,8 +59,12 @@
     Author: Ryan McCallum
     Last Modified: 01-22-2022
 	Background: Trying to log how often wireless connectivity drops on my Raspberry Pi
-    Version 0.1 - initial commit
+    Version 0.2 - make the pop up box always on top
 	TODO: replace $shell.popup with less obtrusive tooltip or tray popup
+	Sources:
+		https://devblogs.microsoft.com/scripting/powertip-use-powershell-to-display-pop-up-window/
+		https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/windows-scripting/x83z1d9f(v=vs.84)?redirectedfrom=MSDN
+		https://community.idera.com/database-tools/powershell/powertips/b/tips/posts/using-pop-up-dialogs-that-are-always-visible
 
 ####################################################################################################>
 
@@ -87,7 +91,7 @@ while ($true) {
 	# Pops up window when ping test fails
 	if (!$working) {		
 		$shell = New-Object -ComObject wscript.shell -ErrorAction Stop
-		$shellPopUp = $shell.popup("Raspberry Pi Connection Broken at $($date)!", 5, "Error", 0)
+		$shellPopUp = $shell.popup("Raspberry Pi Connection Broken at $($date)!", 5, "Error", 4096) # 4096 is always on top, 0 is default
 	}
 
 	# Pause 5 seconds
